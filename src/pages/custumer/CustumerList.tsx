@@ -17,7 +17,7 @@ import {
 import { add, close, pencil } from "ionicons/icons";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
-import ExploreContainer from "../../components/ExploreContainer";
+import { removeCustumer, saveCustumer, searchCustumers } from "./CustumerApp";
 
 const CustumerList: React.FC = () => {
   const { name } = useParams<{ name: string }>();
@@ -27,26 +27,26 @@ const CustumerList: React.FC = () => {
     search();
   }, []);
 
+  const pruebaLocalStrorage = () => {
+    const datosEjemplo = {
+      id: "1",
+      firstName: "Fran",
+      lastName: "boni",
+      email: "fran@test.com",
+      telf: "658741527",
+      address: "C/ pastillas",
+    };
+    saveCustumer(datosEjemplo);
+  };
+
+  const remove = (id: string) => {
+    removeCustumer(id);
+    search();
+  };
+
   const search = () => {
-    const datosEjemplo = [
-      {
-        id: "1",
-        firstName: "Fran",
-        lastName: "boni",
-        email: "fran@test.com",
-        telf: "658741527",
-        address: "C/ pastillas",
-      },
-      {
-        id: "2",
-        firstName: "Maria",
-        lastName: "Castro",
-        email: "maria@test.com",
-        telf: "547851234",
-        address: "C/ torre",
-      },
-    ];
-    setClientes(datosEjemplo);
+    let res = searchCustumers();
+    setClientes(res);
   };
 
   return (
@@ -99,7 +99,11 @@ const CustumerList: React.FC = () => {
                     <IonButton color="primary" fill="clear">
                       <IonIcon icon={pencil} slot="icon-only"></IonIcon>
                     </IonButton>
-                    <IonButton color="danger" fill="clear">
+                    <IonButton
+                      onClick={() => remove(cliente.id)}
+                      color="danger"
+                      fill="clear"
+                    >
                       <IonIcon icon={close} slot="icon-only"></IonIcon>
                     </IonButton>
                   </IonCol>
@@ -107,6 +111,10 @@ const CustumerList: React.FC = () => {
               ))}
             </IonGrid>
           </IonCard>
+
+          <IonButton onClick={pruebaLocalStrorage} color="danger" fill="clear">
+            Prubea Local Storage
+          </IonButton>
         </IonContent>
       </IonContent>
     </IonPage>
