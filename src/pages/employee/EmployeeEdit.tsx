@@ -18,12 +18,12 @@ import {
 import { checkmark } from "ionicons/icons";
 import { useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router";
-import Custumer from "./Custumer";
-import { saveCustumer, searchCustumerById } from "./CustumerApp";
+import Employee from "./Employee";
+import { saveEmployee, searchEmployeeById } from "./EmployeeApp";
 
-const CustumerEdit: React.FC = () => {
+const EmployeeEdit: React.FC = () => {
   const { name, id } = useParams<{ name: string; id: string }>();
-  const [custumer, setCustumer] = useState<Custumer>({});
+  const [employee, setEmployee] = useState<Employee>({});
   const history = useHistory();
 
   useEffect(() => {
@@ -33,15 +33,15 @@ const CustumerEdit: React.FC = () => {
   const search = () => {
     debugger;
     if (id !== "new") {
-      let res = searchCustumerById(id);
-      setCustumer(res);
+      let res = searchEmployeeById(id);
+      setEmployee(res);
     }
-    // let res = searchCustumers();
+    // let res = searchEmployees();
     // setClientes(res);
   };
   const save = () => {
-    saveCustumer(custumer);
-    history.push("/page/custumers");
+    saveEmployee(employee);
+    history.push("/page/employees");
   };
 
   return (
@@ -66,7 +66,7 @@ const CustumerEdit: React.FC = () => {
           <IonCard>
             <IonTitle>
               {" "}
-              {id === "new" ? "Agregar Cliente" : "Editar Cliente"}
+              {id === "new" ? "Agregar Empleado" : "Editar Empleado"}
             </IonTitle>
 
             <IonRow>
@@ -75,9 +75,9 @@ const CustumerEdit: React.FC = () => {
                   <IonLabel position="stacked">Nombre</IonLabel>
                   <IonInput
                     onIonChange={(e) => {
-                      custumer.firstName = String(e.detail.value);
+                      employee.firstName = String(e.detail.value);
                     }}
-                    value={custumer.firstName}
+                    value={employee.firstName}
                   >
                     {" "}
                   </IonInput>
@@ -89,9 +89,9 @@ const CustumerEdit: React.FC = () => {
                   <IonLabel position="stacked">Apellidos</IonLabel>
                   <IonInput
                     onIonChange={(e) => {
-                      custumer.lastName = String(e.detail.value);
+                      employee.lastName = String(e.detail.value);
                     }}
-                    value={custumer.lastName}
+                    value={employee.lastName}
                   >
                     {" "}
                   </IonInput>
@@ -105,9 +105,9 @@ const CustumerEdit: React.FC = () => {
                   <IonLabel position="stacked">Email</IonLabel>
                   <IonInput
                     onIonChange={(e) => {
-                      custumer.email = String(e.detail.value);
+                      employee.email = String(e.detail.value);
                     }}
-                    value={custumer.email}
+                    value={employee.email}
                   >
                     {" "}
                   </IonInput>
@@ -119,9 +119,9 @@ const CustumerEdit: React.FC = () => {
                   <IonLabel position="stacked">Addres</IonLabel>
                   <IonInput
                     onIonChange={(e) => {
-                      custumer.address = String(e.detail.value);
+                      employee.address = String(e.detail.value);
                     }}
-                    value={custumer.address}
+                    value={employee.address}
                   >
                     {" "}
                   </IonInput>
@@ -135,9 +135,9 @@ const CustumerEdit: React.FC = () => {
                   <IonLabel position="stacked">Telf</IonLabel>
                   <IonInput
                     onIonChange={(e) => {
-                      custumer.telf = String(e.detail.value);
+                      employee.telf = String(e.detail.value);
                     }}
-                    value={custumer.telf}
+                    value={employee.telf}
                   >
                     {" "}
                   </IonInput>
@@ -166,4 +166,4 @@ const CustumerEdit: React.FC = () => {
   );
 };
 
-export default CustumerEdit;
+export default EmployeeEdit;

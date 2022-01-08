@@ -17,12 +17,12 @@ import {
 import { add, close, pencil } from "ionicons/icons";
 import { useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router";
-import Custumer from "./Custumer";
-import { removeCustumer, saveCustumer, searchCustumers } from "./CustumerApp";
+import Vendor from "./Vendor";
+import { removeVendor, searchVendors } from "./VendorApp";
 
-const CustumerList: React.FC = () => {
+const VendorList: React.FC = () => {
   const { name } = useParams<{ name: string }>();
-  const [clientes, setClientes] = useState<Custumer[]>([]);
+  const [clientes, setClientes] = useState<Vendor[]>([]);
   const history = useHistory();
 
   useEffect(() => {
@@ -30,21 +30,21 @@ const CustumerList: React.FC = () => {
   }, [history.location.pathname]);
 
   const remove = (id: string) => {
-    removeCustumer(id);
+    removeVendor(id);
     search();
   };
 
   const search = () => {
-    let res = searchCustumers();
+    let res = searchVendors();
     setClientes(res);
   };
 
-  const addCustumer = () => {
-    history.push("/page/custumer/new");
+  const addVendor = () => {
+    history.push("/page/vendor/new");
   };
-  const editCustumer = (id: string) => {
+  const editVendor = (id: string) => {
     debugger;
-    history.push("/page/custumer/" + id);
+    history.push("/page/vendor/" + id);
   };
 
   return (
@@ -67,18 +67,18 @@ const CustumerList: React.FC = () => {
 
         <IonContent>
           <IonCard>
-            <IonTitle>Gestión de Clientes</IonTitle>
+            <IonTitle>Gestión de Proveedores</IonTitle>
 
             <IonItem>
               <IonButton
-                onClick={addCustumer}
+                onClick={addVendor}
                 color="primary"
                 fill="solid"
                 slot="end"
                 size="default"
               >
                 <IonIcon icon={add} />
-                Agregar Cliente
+                Agregar Proveedor
               </IonButton>
             </IonItem>
 
@@ -91,7 +91,7 @@ const CustumerList: React.FC = () => {
                 <IonCol>Acciones</IonCol>
               </IonRow>
 
-              {clientes.map((cliente: Custumer) => (
+              {clientes.map((cliente: Vendor) => (
                 <IonRow>
                   <IonCol>
                     {cliente.firstName} {cliente.lastName}
@@ -101,7 +101,7 @@ const CustumerList: React.FC = () => {
                   <IonCol>{cliente.address}</IonCol>
                   <IonCol>
                     <IonButton
-                      onClick={() => editCustumer(String(cliente.id))}
+                      onClick={() => editVendor(String(cliente.id))}
                       color="primary"
                       fill="clear"
                     >
@@ -125,4 +125,4 @@ const CustumerList: React.FC = () => {
   );
 };
 
-export default CustumerList;
+export default VendorList;

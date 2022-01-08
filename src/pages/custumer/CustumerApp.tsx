@@ -1,3 +1,5 @@
+import Custumer from "./Custumer";
+
 export function searchCustumers() {
   if (!localStorage["custumers"]) {
     localStorage["custumers"] = "[]";
@@ -30,25 +32,23 @@ export function searchCustumers() {
 export function removeCustumer(id: string) {
   let custumers = searchCustumers();
 
-  let indice = custumers.findIndex((custumer: any) => custumer.id == id);
+  let indice = custumers.findIndex((custumer: Custumer) => custumer.id == id);
 
   custumers.splice(indice, 1);
 
   localStorage["custumers"] = JSON.stringify(custumers);
 }
 
-export function saveCustumer(custumer: any) {
+export function saveCustumer(custumer: Custumer) {
   let custumers = searchCustumers();
-
-  debugger;
 
   if (custumer.id) {
     //Editar
-    let indice = custumers.findIndex((c: any) => c.id == custumer.id);
+    let indice = custumers.findIndex((c: Custumer) => c.id == custumer.id);
     custumers[indice] = custumer;
   } else {
     // Nuevo
-    custumer.id = Math.round(Math.random() * 100000);
+    custumer.id = String(Math.round(Math.random() * 100000));
     custumers.push(custumer);
   }
 
