@@ -16,37 +16,46 @@ import {
 } from "@ionic/react";
 import { add, close, pencil } from "ionicons/icons";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router";
-import ExploreContainer from "../../components/ExploreContainer";
+import { useHistory, useParams } from "react-router";
+import { removeCustumer, saveCustumer, searchCustumers } from "./CustumerApp";
 
 const CustumerList: React.FC = () => {
   const { name } = useParams<{ name: string }>();
   const [clientes, setClientes] = useState<any>([]);
+  const history = useHistory();
 
   useEffect(() => {
     search();
-  }, []);
+  }, [history.location.pathname]);
+
+  const pruebaLocalStrorage = () => {
+    const datosEjemplo = {
+      id: "1",
+      firstName: "Fran",
+      lastName: "boni",
+      email: "fran@test.com",
+      telf: "658741527",
+      address: "C/ pastillas",
+    };
+    saveCustumer(datosEjemplo);
+  };
+
+  const remove = (id: string) => {
+    removeCustumer(id);
+    search();
+  };
 
   const search = () => {
-    const datosEjemplo = [
-      {
-        id: "1",
-        firstName: "Fran",
-        lastName: "boni",
-        email: "fran@test.com",
-        telf: "658741527",
-        address: "C/ pastillas",
-      },
-      {
-        id: "2",
-        firstName: "Maria",
-        lastName: "Castro",
-        email: "maria@test.com",
-        telf: "547851234",
-        address: "C/ torre",
-      },
-    ];
-    setClientes(datosEjemplo);
+    let res = searchCustumers();
+    setClientes(res);
+  };
+
+  const addCustumer = () => {
+    history.push("/page/custumer/new");
+  };
+  const editCustumer = (id: string) => {
+    debugger;
+    history.push("/page/custumer/" + id);
   };
 
   return (
@@ -72,7 +81,13 @@ const CustumerList: React.FC = () => {
             <IonTitle>Gestión de Clientes</IonTitle>
 
             <IonItem>
-              <IonButton color="primary" fill="solid" slot="end" size="default">
+              <IonButton
+                onClick={addCustumer}
+                color="primary"
+                fill="solid"
+                slot="end"
+                size="default"
+              >
                 <IonIcon icon={add} />
                 Agregar Cliente
               </IonButton>
@@ -96,10 +111,18 @@ const CustumerList: React.FC = () => {
                   <IonCol>{cliente.telf}</IonCol>
                   <IonCol>{cliente.address}</IonCol>
                   <IonCol>
-                    <IonButton color="primary" fill="clear">
+                    <IonButton
+                      onClick={() => editCustumer(cliente.id)}
+                      color="primary"
+                      fill="clear"
+                    >
                       <IonIcon icon={pencil} slot="icon-only"></IonIcon>
                     </IonButton>
-                    <IonButton color="danger" fill="clear">
+                    <IonButton
+                      onClick={() => remove(cliente.id)}
+                      color="danger"
+                      fill="clear"
+                    >
                       <IonIcon icon={close} slot="icon-only"></IonIcon>
                     </IonButton>
                   </IonCol>
@@ -107,6 +130,10 @@ const CustumerList: React.FC = () => {
               ))}
             </IonGrid>
           </IonCard>
+
+          <IonButton onClick={pruebaLocalStrorage} color="danger" fill="clear">
+            Prubea Local Storage
+          </IonButton>
         </IonContent>
       </IonContent>
     </IonPage>
