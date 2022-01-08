@@ -17,28 +17,17 @@ import {
 import { add, close, pencil } from "ionicons/icons";
 import { useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router";
+import Custumer from "./Custumer";
 import { removeCustumer, saveCustumer, searchCustumers } from "./CustumerApp";
 
 const CustumerList: React.FC = () => {
   const { name } = useParams<{ name: string }>();
-  const [clientes, setClientes] = useState<any>([]);
+  const [clientes, setClientes] = useState<Custumer[]>([]);
   const history = useHistory();
 
   useEffect(() => {
     search();
   }, [history.location.pathname]);
-
-  const pruebaLocalStrorage = () => {
-    const datosEjemplo = {
-      id: "1",
-      firstName: "Fran",
-      lastName: "boni",
-      email: "fran@test.com",
-      telf: "658741527",
-      address: "C/ pastillas",
-    };
-    saveCustumer(datosEjemplo);
-  };
 
   const remove = (id: string) => {
     removeCustumer(id);
@@ -102,7 +91,7 @@ const CustumerList: React.FC = () => {
                 <IonCol>Acciones</IonCol>
               </IonRow>
 
-              {clientes.map((cliente: any) => (
+              {clientes.map((cliente: Custumer) => (
                 <IonRow>
                   <IonCol>
                     {cliente.firstName} {cliente.lastName}
@@ -112,14 +101,14 @@ const CustumerList: React.FC = () => {
                   <IonCol>{cliente.address}</IonCol>
                   <IonCol>
                     <IonButton
-                      onClick={() => editCustumer(cliente.id)}
+                      onClick={() => editCustumer(String(cliente.id))}
                       color="primary"
                       fill="clear"
                     >
                       <IonIcon icon={pencil} slot="icon-only"></IonIcon>
                     </IonButton>
                     <IonButton
-                      onClick={() => remove(cliente.id)}
+                      onClick={() => remove(String(cliente.id))}
                       color="danger"
                       fill="clear"
                     >
@@ -130,10 +119,6 @@ const CustumerList: React.FC = () => {
               ))}
             </IonGrid>
           </IonCard>
-
-          <IonButton onClick={pruebaLocalStrorage} color="danger" fill="clear">
-            Prubea Local Storage
-          </IonButton>
         </IonContent>
       </IonContent>
     </IonPage>
