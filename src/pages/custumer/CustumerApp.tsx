@@ -39,7 +39,25 @@ export function removeCustumer(id: string) {
 
 export function saveCustumer(custumer: any) {
   let custumers = searchCustumers();
-  custumers.push(custumer);
+
+  debugger;
+
+  if (custumer.id) {
+    //Editar
+    let indice = custumers.findIndex((c: any) => c.id == custumer.id);
+    custumers[indice] = custumer;
+  } else {
+    // Nuevo
+    custumer.id = Math.round(Math.random() * 100000);
+    custumers.push(custumer);
+  }
 
   localStorage["custumers"] = JSON.stringify(custumers);
+}
+export function searchCustumerById(id: string) {
+  let custumers = searchCustumers();
+
+  return custumers.find((custumer: any) => {
+    return custumer.id == id;
+  });
 }
