@@ -31,8 +31,8 @@ import CustumerList from "./pages/custumer/CustumerList";
 import CustumerEdit from "./pages/custumer/CustumerEdit";
 import EmployeeList from "./pages/employee/EmployeeList";
 import EmployeeEdit from "./pages/employee/EmployeeEdit";
-import VendorEdit from "./pages/vendor/VendorEdit";
-import VendorList from "./pages/vendor/VendorList";
+import SupplierEdit from "./pages/supplier/SupplierEdit";
+import SupplierList from "./pages/supplier/SupplierList";
 
 setupIonicReact();
 
@@ -63,12 +63,12 @@ const App: React.FC = () => {
               <EmployeeEdit></EmployeeEdit>
             </Route>
 
-            <Route path="/page/vendors" exact={true}>
-              <VendorList></VendorList>
+            <Route path="/page/suppliers" exact={true}>
+              <SupplierList></SupplierList>
             </Route>
 
-            <Route path="/page/vendor/:id" exact={true}>
-              <VendorEdit></VendorEdit>
+            <Route path="/page/supplier/:id" exact={true}>
+              <SupplierEdit></SupplierEdit>
             </Route>
           </IonRouterOutlet>
         </IonSplitPane>

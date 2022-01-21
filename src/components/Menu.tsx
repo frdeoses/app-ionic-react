@@ -53,7 +53,7 @@ const appPages: AppPage[] = [
   },
   {
     title: "Proveedores",
-    url: "/page/vendors",
+    url: "/page/suppliers",
     iosIcon: carSharp,
     mdIcon: carSharp,
   },
