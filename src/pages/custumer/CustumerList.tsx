@@ -29,13 +29,13 @@ const CustumerList: React.FC = () => {
     search();
   }, [history.location.pathname]);
 
-  const remove = (id: string) => {
-    removeCustumer(id);
+  const remove = async (id: string) => {
+    await removeCustumer(id);
     search();
   };
 
-  const search = () => {
-    let res = searchCustumers();
+  const search = async () => {
+    let res = await searchCustumers();
     setClientes(res);
   };
 
@@ -43,7 +43,6 @@ const CustumerList: React.FC = () => {
     history.push("/page/custumer/new");
   };
   const editCustumer = (id: string) => {
-    debugger;
     history.push("/page/custumer/" + id);
   };
 
@@ -94,10 +93,10 @@ const CustumerList: React.FC = () => {
               {clientes.map((cliente: Custumer) => (
                 <IonRow>
                   <IonCol>
-                    {cliente.firstName} {cliente.lastName}
+                    {cliente.firstname} {cliente.lastname}
                   </IonCol>
                   <IonCol>{cliente.email}</IonCol>
-                  <IonCol>{cliente.telf}</IonCol>
+                  <IonCol>{cliente.phone}</IonCol>
                   <IonCol>{cliente.address}</IonCol>
                   <IonCol>
                     <IonButton
