@@ -4,7 +4,8 @@ export default interface Custumer {
     firstName?: string;
     lastName?: string;
     email?: string;
-    telf?: string;
+    phone?: string;
     address?: string;
+    salary?: number;
 
 }
