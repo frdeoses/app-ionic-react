@@ -135,9 +135,26 @@ const EmployeeEdit: React.FC = () => {
                   <IonLabel position="stacked">Telf</IonLabel>
                   <IonInput
                     onIonChange={(e) => {
-                      employee.telf = String(e.detail.value);
+                      employee.phone = String(e.detail.value);
                     }}
-                    value={employee.telf}
+                    value={employee.phone}
+                  >
+                    {" "}
+                  </IonInput>
+                </IonItem>
+              </IonCol>
+
+              <IonCol></IonCol>
+            </IonRow>
+            <IonRow>
+              <IonCol>
+                <IonItem>
+                  <IonLabel position="stacked">Salary</IonLabel>
+                  <IonInput
+                    onIonChange={(e) => {
+                      employee.salary = Number(e.detail.value);
+                    }}
+                    value={employee.salary}
                   >
                     {" "}
                   </IonInput>
