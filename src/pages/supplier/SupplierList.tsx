@@ -17,12 +17,12 @@ import {
 import { add, close, pencil } from "ionicons/icons";
 import { useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router";
-import Vendor from "./Vendor";
-import { removeVendor, searchVendors } from "./VendorApp";
+import Supplier from "./Supplier";
+import { removeSupplier, searchSuppliers } from "./SupplierApp";
 
-const VendorList: React.FC = () => {
+const SupplierList: React.FC = () => {
   const { name } = useParams<{ name: string }>();
-  const [clientes, setClientes] = useState<Vendor[]>([]);
+  const [clientes, setClientes] = useState<Supplier[]>([]);
   const history = useHistory();
 
   useEffect(() => {
@@ -30,21 +30,21 @@ const VendorList: React.FC = () => {
   }, [history.location.pathname]);
 
   const remove = (id: string) => {
-    removeVendor(id);
+    removeSupplier(id);
     search();
   };
 
   const search = () => {
-    let res = searchVendors();
+    let res = searchSuppliers();
     setClientes(res);
   };
 
-  const addVendor = () => {
-    history.push("/page/vendor/new");
+  const addSupplier = () => {
+    history.push("/page/supplier/new");
   };
-  const editVendor = (id: string) => {
+  const editSupplier = (id: string) => {
     debugger;
-    history.push("/page/vendor/" + id);
+    history.push("/page/supplier/" + id);
   };
 
   return (
@@ -71,7 +71,7 @@ const VendorList: React.FC = () => {
 
             <IonItem>
               <IonButton
-                onClick={addVendor}
+                onClick={addSupplier}
                 color="primary"
                 fill="solid"
                 slot="end"
@@ -87,21 +87,19 @@ const VendorList: React.FC = () => {
                 <IonCol>Nombre</IonCol>
                 <IonCol>Email</IonCol>
                 <IonCol>Teléfono</IonCol>
-                <IonCol>Dirección</IonCol>
+                <IonCol>Web</IonCol>
                 <IonCol>Acciones</IonCol>
               </IonRow>
 
-              {clientes.map((cliente: Vendor) => (
+              {clientes.map((cliente: Supplier) => (
                 <IonRow>
-                  <IonCol>
-                    {cliente.firstName} {cliente.lastName}
-                  </IonCol>
+                  <IonCol>{cliente.name}</IonCol>
                   <IonCol>{cliente.email}</IonCol>
-                  <IonCol>{cliente.telf}</IonCol>
-                  <IonCol>{cliente.address}</IonCol>
+                  <IonCol>{cliente.phone}</IonCol>
+                  <IonCol>{cliente.web}</IonCol>
                   <IonCol>
                     <IonButton
-                      onClick={() => editVendor(String(cliente.id))}
+                      onClick={() => editSupplier(String(cliente.id))}
                       color="primary"
                       fill="clear"
                     >
@@ -125,4 +123,4 @@ const VendorList: React.FC = () => {
   );
 };
 
-export default VendorList;
+export default SupplierList;

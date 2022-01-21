@@ -17,30 +17,35 @@ import {
 } from "@ionic/react";
 import { checkmark } from "ionicons/icons";
 import { useEffect, useState } from "react";
-import { useHistory, useParams } from "react-router";
+import { useHistory, useParams, useRouteMatch } from "react-router";
 import Custumer from "./Custumer";
 import { saveCustumer, searchCustumerById } from "./CustumerApp";
 
 const CustumerEdit: React.FC = () => {
-  const { name, id } = useParams<{ name: string; id: string }>();
+  const { name } = useParams<{ name: string }>();
+
   const [custumer, setCustumer] = useState<Custumer>({});
   const history = useHistory();
 
+  const routeMatch: any = useRouteMatch("/page/custumer/:id");
+  const id = routeMatch?.params?.id;
+
   useEffect(() => {
     search();
-  }, []);
+  }, [history.location.pathname]);
 
-  const search = () => {
-    debugger;
-    if (id !== "new") {
-      let res = searchCustumerById(id);
+  const search = async () => {
+    if (id === "new") {
+      setCustumer({});
+    } else {
+      let res = await searchCustumerById(id);
       setCustumer(res);
     }
     // let res = searchCustumers();
     // setClientes(res);
   };
-  const save = () => {
-    saveCustumer(custumer);
+  const save = async () => {
+    await saveCustumer(custumer);
     history.push("/page/custumers");
   };
 
@@ -75,9 +80,9 @@ const CustumerEdit: React.FC = () => {
                   <IonLabel position="stacked">Nombre</IonLabel>
                   <IonInput
                     onIonChange={(e) => {
-                      custumer.firstName = String(e.detail.value);
+                      custumer.firstname = String(e.detail.value);
                     }}
-                    value={custumer.firstName}
+                    value={custumer.firstname}
                   >
                     {" "}
                   </IonInput>
@@ -89,9 +94,9 @@ const CustumerEdit: React.FC = () => {
                   <IonLabel position="stacked">Apellidos</IonLabel>
                   <IonInput
                     onIonChange={(e) => {
-                      custumer.lastName = String(e.detail.value);
+                      custumer.lastname = String(e.detail.value);
                     }}
-                    value={custumer.lastName}
+                    value={custumer.lastname}
                   >
                     {" "}
                   </IonInput>
@@ -135,9 +140,9 @@ const CustumerEdit: React.FC = () => {
                   <IonLabel position="stacked">Telf</IonLabel>
                   <IonInput
                     onIonChange={(e) => {
-                      custumer.telf = String(e.detail.value);
+                      custumer.phone = String(e.detail.value);
                     }}
-                    value={custumer.telf}
+                    value={custumer.phone}
                   >
                     {" "}
                   </IonInput>

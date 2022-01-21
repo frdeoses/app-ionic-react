@@ -97,7 +97,7 @@ const EmployeeList: React.FC = () => {
                     {cliente.firstName} {cliente.lastName}
                   </IonCol>
                   <IonCol>{cliente.email}</IonCol>
-                  <IonCol>{cliente.telf}</IonCol>
+                  <IonCol>{cliente.phone}</IonCol>
                   <IonCol>{cliente.address}</IonCol>
                   <IonCol>
                     <IonButton
