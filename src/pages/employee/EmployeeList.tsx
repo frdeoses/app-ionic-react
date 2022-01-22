@@ -43,7 +43,6 @@ const EmployeeList: React.FC = () => {
     history.push("/page/employee/new");
   };
   const editEmployee = (id: string) => {
-    debugger;
     history.push("/page/employee/" + id);
   };
 
