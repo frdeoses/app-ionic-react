@@ -44,6 +44,7 @@ const CustumerEdit: React.FC = () => {
     // let res = searchCustumers();
     // setClientes(res);
   };
+
   const save = async () => {
     await saveCustumer(custumer);
     history.push("/page/custumers");

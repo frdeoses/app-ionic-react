@@ -38,7 +38,6 @@ export async function removeCustumer(id: string) {
 }
 
 export async function saveCustumer(custumer: Custumer) {
-  debugger;
   let url = process.env.REACT_APP_API + "custumers";
   await fetch(url, {
     method: "POST",

@@ -1,8 +1,8 @@
 export default interface Custumer {
 
     id?: string;
-    firstName?: string;
-    lastName?: string;
+    firstname?: string;
+    lastname?: string;
     email?: string;
     phone?: string;
     address?: string;
