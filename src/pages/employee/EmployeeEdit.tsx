@@ -17,30 +17,35 @@ import {
 } from "@ionic/react";
 import { checkmark } from "ionicons/icons";
 import { useEffect, useState } from "react";
-import { useHistory, useParams } from "react-router";
+import { useHistory, useParams, useRouteMatch } from "react-router";
 import Employee from "./Employee";
 import { saveEmployee, searchEmployeeById } from "./EmployeeApp";
 
 const EmployeeEdit: React.FC = () => {
-  const { name, id } = useParams<{ name: string; id: string }>();
+  const { name } = useParams<{ name: string }>();
   const [employee, setEmployee] = useState<Employee>({});
   const history = useHistory();
 
+  const routeMatch: any = useRouteMatch("/page/employee/:id");
+  const id = routeMatch?.params?.id;
+
   useEffect(() => {
     search();
-  }, []);
+  }, [history.location.pathname]);
 
-  const search = () => {
-    debugger;
-    if (id !== "new") {
-      let res = searchEmployeeById(id);
+  const search = async () => {
+    if (id === "new") {
+      setEmployee({});
+    } else {
+      let res = await searchEmployeeById(id);
       setEmployee(res);
     }
-    // let res = searchEmployees();
+    // let res = searchCustumers();
     // setClientes(res);
   };
-  const save = () => {
-    saveEmployee(employee);
+
+  const save = async () => {
+    await saveEmployee(employee);
     history.push("/page/employees");
   };
 
@@ -75,9 +80,9 @@ const EmployeeEdit: React.FC = () => {
                   <IonLabel position="stacked">Nombre</IonLabel>
                   <IonInput
                     onIonChange={(e) => {
-                      employee.firstName = String(e.detail.value);
+                      employee.firstname = String(e.detail.value);
                     }}
-                    value={employee.firstName}
+                    value={employee.firstname}
                   >
                     {" "}
                   </IonInput>
@@ -89,9 +94,9 @@ const EmployeeEdit: React.FC = () => {
                   <IonLabel position="stacked">Apellidos</IonLabel>
                   <IonInput
                     onIonChange={(e) => {
-                      employee.lastName = String(e.detail.value);
+                      employee.lastname = String(e.detail.value);
                     }}
-                    value={employee.lastName}
+                    value={employee.lastname}
                   >
                     {" "}
                   </IonInput>

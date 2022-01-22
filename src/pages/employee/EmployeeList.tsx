@@ -14,7 +14,7 @@ import {
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
-import { add, close, pencil } from "ionicons/icons";
+import { add, close, pencil, sync } from "ionicons/icons";
 import { useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router";
 import Employee from "./Employee";
@@ -29,13 +29,13 @@ const EmployeeList: React.FC = () => {
     search();
   }, [history.location.pathname]);
 
-  const remove = (id: string) => {
-    removeEmployee(id);
+  const remove = async (id: string) => {
+    await removeEmployee(id);
     search();
   };
 
-  const search = () => {
-    let res = searchEmployees();
+  const search = async () => {
+    let res = await searchEmployees();
     setClientes(res);
   };
 
@@ -94,7 +94,7 @@ const EmployeeList: React.FC = () => {
               {clientes.map((cliente: Employee) => (
                 <IonRow>
                   <IonCol>
-                    {cliente.firstName} {cliente.lastName}
+                    {cliente.firstname} {cliente.lastname}
                   </IonCol>
                   <IonCol>{cliente.email}</IonCol>
                   <IonCol>{cliente.phone}</IonCol>
