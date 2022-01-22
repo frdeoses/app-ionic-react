@@ -29,21 +29,21 @@ const SupplierList: React.FC = () => {
     search();
   }, [history.location.pathname]);
 
-  const remove = (id: string) => {
-    removeSupplier(id);
+  const remove = async (id: string) => {
+    await removeSupplier(id);
     search();
   };
 
-  const search = () => {
-    let res = searchSuppliers();
+  const search = async () => {
+    let res = await searchSuppliers();
     setClientes(res);
   };
 
   const addSupplier = () => {
     history.push("/page/supplier/new");
   };
+
   const editSupplier = (id: string) => {
-    debugger;
     history.push("/page/supplier/" + id);
   };
 

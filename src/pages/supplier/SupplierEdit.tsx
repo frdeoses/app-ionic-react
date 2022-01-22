@@ -17,30 +17,35 @@ import {
 } from "@ionic/react";
 import { checkmark } from "ionicons/icons";
 import { useEffect, useState } from "react";
-import { useHistory, useParams } from "react-router";
+import { useHistory, useParams, useRouteMatch } from "react-router";
 import Supplier from "./Supplier";
 import { saveSupplier, searchSupplierById } from "./SupplierApp";
 
 const SupplierEdit: React.FC = () => {
-  const { name, id } = useParams<{ name: string; id: string }>();
+  const { name } = useParams<{ name: string }>();
   const [supplier, setSupplier] = useState<Supplier>({});
   const history = useHistory();
 
+  const routeMatch: any = useRouteMatch("/page/supplier/:id");
+  const id = routeMatch?.params?.id;
+
   useEffect(() => {
     search();
-  }, []);
+  }, [history.location.pathname]);
 
-  const search = () => {
-    debugger;
-    if (id !== "new") {
-      let res = searchSupplierById(id);
+  const search = async () => {
+    if (id === "new") {
+      setSupplier({});
+    } else {
+      let res = await searchSupplierById(id);
       setSupplier(res);
     }
-    // let res = searchSuppliers();
+    // let res = searchCustumers();
     // setClientes(res);
   };
-  const save = () => {
-    saveSupplier(supplier);
+
+  const save = async () => {
+    await saveSupplier(supplier);
     history.push("/page/suppliers");
   };
 
